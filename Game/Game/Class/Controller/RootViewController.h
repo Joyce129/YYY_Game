@@ -2,16 +2,12 @@
 //  RootViewController.h
 //  Game
 //
-//  Created by Jean on 2018/12/5.
-//  Copyright © 2018年 北京易盟天地信息技术股份有限公司. All rights reserved.
+//  Created by YYY on 2017/12/16.
+//  Copyright © 2017年 成品家（北京）网路科技有限公司. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface RootViewController : UIViewController
 
 @end
-
-NS_ASSUME_NONNULL_END
