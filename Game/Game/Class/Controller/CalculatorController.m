@@ -62,8 +62,10 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    self.view.top = 0;
     [self.view endEditing:YES];
+    [UIView animateWithDuration:0.2 animations:^{
+        self.view.top = 0;
+    }];
 }
 
 //操作结果
@@ -151,8 +153,10 @@
 #pragma mark UITextField delegate
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    self.view.top = 0;
     [textField resignFirstResponder];
+    [UIView animateWithDuration:0.2 animations:^{
+        self.view.top = 0;
+    }];
     return YES;
 }
 

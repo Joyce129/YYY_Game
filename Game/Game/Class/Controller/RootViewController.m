@@ -118,7 +118,7 @@
     
     
     self.imagesArray1 = @[[UIImage imageNamed:@"石头"],[UIImage imageNamed:@"剪子"],[UIImage imageNamed:@"布"]];
-    self.imagesArray2 = @[[UIImage imageNamed:@"剪子"],[UIImage imageNamed:@"布"],[UIImage imageNamed:@"石头"]];
+    self.imagesArray2 = @[[UIImage imageNamed:@"剪子"],[UIImage imageNamed:@"石头"],[UIImage imageNamed:@"布"]];
     
     
     for (int i=0; i<2; i++)
