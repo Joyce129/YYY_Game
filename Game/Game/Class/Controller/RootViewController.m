@@ -14,45 +14,47 @@
 
 #import "CommonButton.h"
 
-//#import <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
 
-#define kPlayTop (bottomView.height-96)/2.0
+#define kPlayTop (self.bottomView.height-80)/2.0
 
 @interface RootViewController ()
 {
-    //底部视图
-    UIView *bottomView;
-    //播放
-    UIButton *playBtn;
-    //出拳结果
-    CommonLabel *matchResult;
-    
-    //动画图片
-    NSArray *imagesArray1;
-    NSArray *imagesArray2;
-    
-    CommonLabel *computerScore;
-    CommonLabel *playerScore;
-    
-    NSInteger computerGrade;
-    NSInteger playerGrade;
-    
-    //动画图片
-    UIImageView *gifImageLeft;
-    UIImageView *gifImageRight;
-    NSString *gifPath;
-    
-    NSMutableArray *figurePath;
-    
-    NSDate *startDate;
-    NSTimer *clockTimer;
-    CommonLabel *timerLabel;
 }
 
 @property(nonatomic,strong)AVAudioPlayer *backgroundPlayer;
 
 @property(nonatomic,strong)AVAudioPlayer *resultPlayer;
+
+//出拳结果
+@property(nonatomic,strong)CommonLabel *matchResult;
+
+@property(nonatomic,strong)CommonLabel *computerScore;
+@property(nonatomic,strong)CommonLabel *playerScore;
+
+@property(nonatomic,assign)NSInteger computerGrade;
+@property(nonatomic,assign)NSInteger playerGrade;
+
+//动画图片
+@property(nonatomic,strong)UIImageView *gifImageLeft;
+@property(nonatomic,strong)UIImageView *gifImageRight;
+@property(nonatomic,copy)NSString *gifPath;
+
+@property(nonatomic,strong)NSMutableArray *figurePath;
+
+@property(nonatomic,strong)NSDate *startDate;
+@property(nonatomic,strong)NSTimer *clockTimer;
+@property(nonatomic,strong)CommonLabel *timerLabel;
+
+//动画图片
+@property(nonatomic,strong)NSArray *imagesArray1;
+@property(nonatomic,strong)NSArray *imagesArray2;
+
+//播放
+@property(nonatomic,strong)UIButton *playBtn;
+
+//底部视图
+@property(nonatomic,strong)UIView *bottomView;
 
 @end
 
@@ -72,79 +74,76 @@
 //定时器
 -(void)clockAction:(NSTimer *)timer
 {
-    NSInteger internal = [timer.fireDate timeIntervalSinceDate:startDate];
+    NSInteger internal = [timer.fireDate timeIntervalSinceDate:self.startDate];
     NSString *text = [NSString stringWithFormat:@"%02ld ：%02ld",internal/60,internal%60];
-    [timerLabel setText:text];
+    [self.timerLabel setText:text];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    self.computerGrade = 0;
+    self.playerGrade = 0;
+    
     CommonImage *bgImage = [[CommonImage alloc]initWithFrame:[UIScreen mainScreen].bounds imageStr:@"bgImage"];
     self.view = bgImage;
     
-    CommonButton *nextBtn = [[CommonButton alloc]initWithFrame:CGRectMake(kDeviceWidth-50, 20, 65*0.65, 63*0.65) imageStr:@"next"];
+    CommonButton *nextBtn = [[CommonButton alloc]initWithFrame:CGRectMake(kDeviceWidth-50, 44, 65*0.65, 63*0.65) imageStr:@"next"];
     [nextBtn addTarget:self action:@selector(nextAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:nextBtn];
     
     //定时器
-    timerLabel = [[CommonLabel alloc]initWithFrame:CGRectMake(5, 20, 100, 30) titleStr:@"00 ：00" textColor:[UIColor redColor] textFont:[UIFont boldSystemFontOfSize:14]];
-    [self.view addSubview:timerLabel];
+    self.timerLabel = [[CommonLabel alloc]initWithFrame:CGRectMake(10, 44, 100, 30) titleStr:@"00 ：00" textColor:[UIColor redColor] textFont:[UIFont boldSystemFontOfSize:14]];
+    [self.view addSubview:self.timerLabel];
     
-    startDate = [NSDate date];
-    clockTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(clockAction:) userInfo:nil repeats:YES];
+    self.startDate = [NSDate date];
+    self.clockTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(clockAction:) userInfo:nil repeats:YES];
     
     //出拳结果
-    matchResult = [[CommonLabel alloc]initWithFrame:CGRectMake(0,60, kDeviceWidth, 25) titleStr:@"🏮 比赛即将开始 🏮" textColor:[UIColor redColor] textFont:[UIFont boldSystemFontOfSize:25]];
-    
-    if (kDeviceHeight > 568)
-    {
-        matchResult.top = 90;
-    }
-    matchResult.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:matchResult];
+    self.matchResult = [[CommonLabel alloc]initWithFrame:CGRectMake(0,85, kDeviceWidth, 25) titleStr:@"🏮 比赛即将开始 🏮" textColor:[UIColor redColor] textFont:[UIFont boldSystemFontOfSize:25]];
+    self.matchResult.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:self.matchResult];
     
     //动画人物图片
     NSString *boyPath = [[NSBundle mainBundle] pathForResource:@"boy@2x" ofType:@"gif"];
     NSString *girlPath = [[NSBundle mainBundle] pathForResource:@"girl@2x" ofType:@"gif"];
-    figurePath = [NSMutableArray arrayWithObjects:boyPath,girlPath, nil];
+    self.figurePath = [NSMutableArray arrayWithObjects:boyPath,girlPath, nil];
     
     _backgroundPlayer = [self loadBackgroundMusic:@"一生有你"];
     //设置无限循环
     [_backgroundPlayer setNumberOfLoops:-1];
     //开始播放
     [_backgroundPlayer play];
-    computerGrade = 0;
-    playerGrade = 0;
     
-    imagesArray1 = @[[UIImage imageNamed:@"石头"],[UIImage imageNamed:@"剪子"],[UIImage imageNamed:@"布"]];
-    imagesArray2 = @[[UIImage imageNamed:@"剪子"],[UIImage imageNamed:@"布"],[UIImage imageNamed:@"石头"]];
+    
+    self.imagesArray1 = @[[UIImage imageNamed:@"石头"],[UIImage imageNamed:@"剪子"],[UIImage imageNamed:@"布"]];
+    self.imagesArray2 = @[[UIImage imageNamed:@"剪子"],[UIImage imageNamed:@"布"],[UIImage imageNamed:@"石头"]];
     
     
     for (int i=0; i<2; i++)
     {
-        UIImageView *playName = [UIImageView imageViewWithGIFFile:figurePath[i] frame:CGRectMake(10, 180+i*150, 60, 60)];
+        UIImageView *playName = [UIImageView imageViewWithGifFile:self.figurePath[i] frame:CGRectMake(15, 210+i*150, 60, 60)];
         playName.layer.masksToBounds = YES;
         playName.layer.cornerRadius = playName.width/2.0;
         [self.view addSubview:playName];
         
-        UIImageView *playImage = [[UIImageView alloc]initWithFrame:CGRectMake((kDeviceWidth-80)/2.0, playName.top, 80, 80)];
+        UIImageView *playImage = [[UIImageView alloc]initWithFrame:CGRectMake((kDeviceWidth-80)/2.0, 200+i*150, 80, 80)];
         playImage.tag = i + 10;
         [self.view addSubview:playImage];
         
-        CommonLabel *scoreLabel = [[CommonLabel alloc]initWithFrame:CGRectMake(kDeviceWidth-30, playName.top+25, 30, 20) titleStr:@"0" textColor:[UIColor redColor] textFont:[UIFont boldSystemFontOfSize:15]];
+        CommonLabel *scoreLabel = [[CommonLabel alloc]initWithFrame:CGRectMake(kDeviceWidth-30, 230+i*150, 30, 20) titleStr:@"0" textColor:[UIColor redColor] textFont:[UIFont boldSystemFontOfSize:15]];
         if (i==0)
         {
-            computerScore = scoreLabel;
+            self.computerScore = scoreLabel;
         }
         else
         {
-            playerScore = scoreLabel;
+            self.playerScore = scoreLabel;
         }
         [self.view addSubview:scoreLabel];
         
-        CommonImage *redflower = [[CommonImage alloc]initWithFrame:CGRectMake(kDeviceWidth-80, playName.top+15, 40, 40) imageStr:@"redFlower"];
+        CommonImage *redflower = [[CommonImage alloc]initWithFrame:CGRectMake(kDeviceWidth-80, 220+i*150, 40, 40) imageStr:@"redFlower"];
         [self.view addSubview:redflower];
     }
     UIImageView *animateImage1 = (UIImageView *)[self.view viewWithTag:10];
@@ -152,17 +151,17 @@
     
     [UIView animateWithDuration:1.5f animations:^{
         [animateImage1 setAnimationDuration:1.0f];
-        [animateImage1 setAnimationImages:imagesArray1];
+        [animateImage1 setAnimationImages:self.imagesArray1];
         
         [animateImage2 setAnimationDuration:1.0f];
-        [animateImage2 setAnimationImages:imagesArray2];
+        [animateImage2 setAnimationImages:self.imagesArray2];
         
         [animateImage1 startAnimating];
         [animateImage2 startAnimating];
     }];
     
-    bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, kDeviceHeight-100, kDeviceWidth, 100)];
-    [self.view addSubview:bottomView];
+    self.bottomView = [[UIView alloc]initWithFrame:CGRectMake(0, kDeviceHeight-130, kDeviceWidth, 100)];
+    [self.view addSubview:self.bottomView];
     
     float edge = (kDeviceWidth-240)/4.0;
     NSArray *tempArray = @[@"石头",@"剪子",@"布"];
@@ -174,19 +173,18 @@
         gesture.layer.cornerRadius = 8;
         gesture.layer.borderColor = [UIColor lightGrayColor].CGColor;
         gesture.layer.borderWidth = 1.0;
-        [bottomView addSubview:gesture];
+        [self.bottomView addSubview:gesture];
         
         UITapGestureRecognizer *tapImage = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(imageAction:)];
         [gesture addGestureRecognizer:tapImage];
     }
     
-    playBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    playBtn.frame = CGRectMake((kDeviceWidth-96)/2.0, kDeviceHeight, 80, 80);
-    [playBtn setBackgroundImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
-    [playBtn setBackgroundImage:[UIImage imageNamed:@"stop"] forState:UIControlStateHighlighted];
-    [playBtn addTarget:self action:@selector(playAction:) forControlEvents:UIControlEventTouchUpInside];
-    [bottomView addSubview:playBtn];
-    // Do any additional setup after loading the view, typically from a nib.
+    self.playBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.playBtn.frame = CGRectMake((kDeviceWidth-80)/2.0, kDeviceHeight, 80, 80);
+    [self.playBtn setBackgroundImage:[UIImage imageNamed:@"play"] forState:UIControlStateNormal];
+    [self.playBtn setBackgroundImage:[UIImage imageNamed:@"stop"] forState:UIControlStateHighlighted];
+    [self.playBtn addTarget:self action:@selector(playAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.bottomView addSubview:self.playBtn];
 }
 
 //出拳
@@ -197,10 +195,10 @@
         [_resultPlayer stop];
     }
     [UIView animateWithDuration:0.7 animations:^{
-        playBtn.top = kPlayTop;
+        self.playBtn.top = kPlayTop;
         for (int i=0; i<3; i++)
         {
-            CommonImage *gestureImage = (CommonImage *)[bottomView viewWithTag:100+i];
+            CommonImage *gestureImage = (CommonImage *)[self.bottomView viewWithTag:100+i];
             gestureImage.top = kDeviceHeight;
         }
         UIImageView *animateImage1 = (UIImageView *)[self.view viewWithTag:10];
@@ -215,59 +213,57 @@
         NSInteger playerResult = currentImage.tag - 100;
         NSInteger endMathResutl = computerResult - playerResult;
         
-        [animateImage1 setImage:imagesArray1[computerResult]];
-        [animateImage2 setImage:imagesArray1[playerResult]];
+        [animateImage1 setImage:self.imagesArray1[computerResult]];
+        [animateImage2 setImage:self.imagesArray1[playerResult]];
         
         if (endMathResutl == 0)
         {
-            _resultPlayer = [self loadBackgroundMusic:@"和局"];
-            matchResult.text = [NSString stringWithFormat:@"👏，比赛和局--- %ld : %ld",computerGrade,playerGrade];
+            self.resultPlayer = [self loadBackgroundMusic:@"和局"];
+            self.matchResult.text = [NSString stringWithFormat:@"👏，比赛和局--- %ld : %ld",self.computerGrade,self.playerGrade];
             
             //动画图片
-            gifPath = [[NSBundle mainBundle] pathForResource:@"image3@2x" ofType:@"gif"];
+            self.gifPath = [[NSBundle mainBundle] pathForResource:@"image3@2x" ofType:@"gif"];
         }
         else if (endMathResutl == -1 || endMathResutl == 2)
         {
             //电脑赢
-            _resultPlayer = [self loadBackgroundMusic:@"伤感"];
-            computerGrade++;
-            computerScore.text = [NSString stringWithFormat:@"%ld",computerGrade];
-            matchResult.text = [NSString stringWithFormat:@"遗憾💔，你输了--- %ld : %ld",computerGrade,playerGrade];
+            self.resultPlayer = [self loadBackgroundMusic:@"伤感"];
+            self.computerGrade++;
+            self.computerScore.text = [NSString stringWithFormat:@"%ld",self.computerGrade];
+            self.matchResult.text = [NSString stringWithFormat:@"遗憾💔，你输了--- %ld : %ld",self.computerGrade,self.playerGrade];
             
             //动画图片
-            gifPath = [[NSBundle mainBundle] pathForResource:@"image2@2x" ofType:@"gif"];
+            self.gifPath = [[NSBundle mainBundle] pathForResource:@"image2@2x" ofType:@"gif"];
         }
         else
         {
             //玩家赢
-            _resultPlayer = [self loadBackgroundMusic:@"恭喜"];
-            playerGrade++;
-            playerScore.text = [NSString stringWithFormat:@"%ld",playerGrade];
-            matchResult.text = [NSString stringWithFormat:@"恭喜💕，你赢了--- %ld : %ld",computerGrade,playerGrade];
+            self.resultPlayer = [self loadBackgroundMusic:@"恭喜"];
+            self.playerGrade++;
+            self.playerScore.text = [NSString stringWithFormat:@"%ld",self.playerGrade];
+            self.matchResult.text = [NSString stringWithFormat:@"恭喜💕，你赢了--- %ld : %ld",self.computerGrade,self.playerGrade];
             
             //动画图片
-            gifPath = [[NSBundle mainBundle] pathForResource:@"image1@2x" ofType:@"gif"];
+            self.gifPath = [[NSBundle mainBundle] pathForResource:@"image1@2x" ofType:@"gif"];
         }
         
         for (int i=0; i<2; i++)
         {
-            UIImageView *tempGiftImage = [UIImageView imageViewWithGIFFile:gifPath frame:CGRectMake(10+i*(kDeviceWidth-100), playBtn.top, 80, 80)];
+            UIImageView *tempGiftImage = [UIImageView imageViewWithGifFile:self.gifPath frame:CGRectMake(10+i*(kDeviceWidth-100), self.playBtn.top, 80, 80)];
             
             if (i==0)
             {
-                gifImageLeft = tempGiftImage;
+                self.gifImageLeft = tempGiftImage;
             }
             else
             {
-                tempGiftImage.left = kDeviceWidth-90;
-                gifImageRight = tempGiftImage;
+                self.gifImageRight = tempGiftImage;
             }
-            [bottomView addSubview:tempGiftImage];
+            [self.bottomView addSubview:tempGiftImage];
         }
         
-        
-        [_resultPlayer setNumberOfLoops:1];
-        [_resultPlayer play];
+        [self.resultPlayer setNumberOfLoops:1];
+        [self.resultPlayer play];
     }];
 }
 
@@ -280,14 +276,14 @@
     }
     
     [UIView animateWithDuration:0.7 animations:^{
-        matchResult.text = [NSString stringWithFormat:@"🌹 双方比值：%ld : %ld 🌹",computerGrade,playerGrade];
-        playBtn.top = kDeviceHeight;
-        gifImageLeft.top = playBtn.top;
-        gifImageRight.top = playBtn.top;
+        self.matchResult.text = [NSString stringWithFormat:@"🌹 双方比值：%ld : %ld 🌹",self.computerGrade,self.playerGrade];
+        self.playBtn.top = kDeviceHeight;
+        self.gifImageLeft.top = self.playBtn.top;
+        self.gifImageRight.top = self.playBtn.top;
         
         for (int i=0; i<3; i++)
         {
-            CommonImage *gestureImage = (CommonImage *)[bottomView viewWithTag:100+i];
+            CommonImage *gestureImage = (CommonImage *)[self.bottomView viewWithTag:100+i];
             gestureImage.top = 0;
         }
     }];
@@ -298,7 +294,7 @@
     [animateImage2 startAnimating];
 }
 
-//加载背景音乐
+#pragma mark 加载背景音乐
 -(AVAudioPlayer *)loadBackgroundMusic:(NSString *)fileName
 {
     NSURL *url = [[NSBundle mainBundle]URLForResource:fileName withExtension:@"mp3"];
@@ -321,10 +317,6 @@
 {
     [super viewWillAppear:animated];
     [_backgroundPlayer play];
-}
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 @end

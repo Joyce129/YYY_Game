@@ -9,7 +9,8 @@
 #ifndef Common_h
 #define Common_h
 
-#import "UIImageView+GIF.h"
+#import "UIImageView+GifAnimation.h"
+
 #import "UIViewExt.h"
 
 #define kDeviceWidth [UIScreen mainScreen].bounds.size.width

@@ -66,7 +66,7 @@
         
         NSString *path = [[NSBundle mainBundle] pathForResource:imagesArray[i] ofType:@"gif"];
         
-        UIImageView *faceImage = [UIImageView imageViewWithGIFFile:path frame:CGRectMake(0,0, 60, 60)];
+        UIImageView *faceImage = [UIImageView imageViewWithGifFile:path frame:CGRectMake(0,0, 60, 60)];
         [faceImage setCenter:CGPointMake((col*width)+width/2.0, 140+row*80)];
         faceImage.userInteractionEnabled = YES;
         faceImage.backgroundColor = [UIColor clearColor];

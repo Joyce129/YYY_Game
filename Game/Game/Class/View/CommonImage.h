@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface CommonImage : UIImageView
+
 -(id)initWithFrame:(CGRect)frame imageStr:(NSString *)imageStr;
 
 @end

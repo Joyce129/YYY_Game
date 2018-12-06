@@ -40,6 +40,7 @@
 		2F1311F321B7DB2C0086C81B /* CommonBackController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F1311EB21B7DB2C0086C81B /* CommonBackController.m */; };
 		2F1311F421B7DB2C0086C81B /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F1311EC21B7DB2C0086C81B /* RootViewController.m */; };
 		2F1311F521B7DB2C0086C81B /* ExpressionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F1311F021B7DB2C0086C81B /* ExpressionController.m */; };
+		2F5F8D1F21B8B66F00247829 /* UIImageView+GifAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F5F8D1E21B8B66F00247829 /* UIImageView+GifAnimation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -91,6 +92,8 @@
 		2F1311F021B7DB2C0086C81B /* ExpressionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExpressionController.m; sourceTree = "<group>"; };
 		2F1311F121B7DB2C0086C81B /* CommonBackController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonBackController.h; sourceTree = "<group>"; };
 		2F1311F621B7DB6B0086C81B /* Common.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Common.h; sourceTree = "<group>"; };
+		2F5F8D1D21B8B66F00247829 /* UIImageView+GifAnimation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImageView+GifAnimation.h"; sourceTree = "<group>"; };
+		2F5F8D1E21B8B66F00247829 /* UIImageView+GifAnimation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+GifAnimation.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -220,6 +223,8 @@
 		2F1311C821B7DADE0086C81B /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				2F5F8D1D21B8B66F00247829 /* UIImageView+GifAnimation.h */,
+				2F5F8D1E21B8B66F00247829 /* UIImageView+GifAnimation.m */,
 				2F1311C921B7DADE0086C81B /* BBFlashCtntLabel.h */,
 				2F1311CA21B7DADE0086C81B /* BBFlashCtntLabel.m */,
 				2F1311CB21B7DADE0086C81B /* UIImageView+GIF.h */,
@@ -329,6 +334,7 @@
 				2F1311D021B7DADE0086C81B /* CommonButton.m in Sources */,
 				2F1311E921B7DADE0086C81B /* UIViewExt.m in Sources */,
 				2F1311F521B7DB2C0086C81B /* ExpressionController.m in Sources */,
+				2F5F8D1F21B8B66F00247829 /* UIImageView+GifAnimation.m in Sources */,
 				2F1311F221B7DB2C0086C81B /* CalculatorController.m in Sources */,
 				2F1311E821B7DADE0086C81B /* UIImageView+GIF.m in Sources */,
 				2F13119E21B7D8CD0086C81B /* main.m in Sources */,
