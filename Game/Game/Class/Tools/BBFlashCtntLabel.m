@@ -10,8 +10,6 @@
 
 @interface BBFlashCtntLabel()
 {
-    BOOL seted;
-    
     BOOL moveNeed;
     
     CGFloat rate;
@@ -28,8 +26,7 @@
     self = [super initWithFrame:frame];
     if (self)
     {
-        [self setup];
-        NSLog(@"11111");
+        [self setupViews];
     }
     return self;
 }
@@ -53,17 +50,14 @@
     }
 }
 
-- (void)setup
+//初始化子视图
+- (void)setupViews
 {
-    if (seted)
-    {
-        return ;
-    }
     self.innerContainer = [[UIView alloc] initWithFrame:self.bounds];
     self.innerContainer.backgroundColor = [UIColor clearColor];
-    self.innerContainer.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+
+    //self.innerContainer.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self addSubview:self.innerContainer];
-    seted = YES;
 }
 
 - (void)reloadView
@@ -77,32 +71,31 @@
         }
     }
     CGFloat width = self.frame.size.width;
-    CGRect f = CGRectMake(0, 0, width, self.bounds.size.height);
-    UILabel *label = [[UILabel alloc] initWithFrame:f];
-    label.backgroundColor = [UIColor clearColor];
-    label.textAlignment = NSTextAlignmentCenter;
+    CGRect frame1 = CGRectMake(0, 0, width, self.bounds.size.height);
+    UILabel *firstLabel = [[UILabel alloc] initWithFrame:frame1];
+    firstLabel.textAlignment = NSTextAlignmentCenter;
     if (self.text)
     {
-        label.text = self.text;
-        label.textColor = self.textColor;
-        label.font = self.font;
+        firstLabel.text = self.text;
+        firstLabel.textColor = self.textColor;
+        firstLabel.font = self.font;
     }
-    [self.innerContainer addSubview:label];
+    [self.innerContainer addSubview:firstLabel];
     
-    CGRect f1 = CGRectMake(width + self.leastInnerGap, 0, width, f.size.height);
-    UILabel *next = [[UILabel alloc] initWithFrame:f1];
-    next.backgroundColor = [UIColor clearColor];
-    next.textAlignment = NSTextAlignmentCenter;
+    CGRect frame2 = CGRectMake(width + self.leastInnerGap, 0, width, frame1.size.height);
+    UILabel *secondLabel = [[UILabel alloc] initWithFrame:frame2];
+    secondLabel.textAlignment = NSTextAlignmentCenter;
     if (self.text)
     {
-        next.text = self.text;
-        next.textColor = self.textColor;
-        next.font = self.font;
+        secondLabel.text = self.text;
+        secondLabel.textColor = self.textColor;
+        secondLabel.font = self.font;
     }
-    [self.innerContainer addSubview:next];
+    [self.innerContainer addSubview:secondLabel];
     
     //序列帧动画
     CAKeyframeAnimation *moveAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.translation.x"];
+    moveAnimation.removedOnCompletion = false;
     moveAnimation.keyTimes = @[@0., @0.191, @0.868, @1.0];
     moveAnimation.values = @[@0, @0., @(- width - self.leastInnerGap)];
     moveAnimation.duration = width / rate;

@@ -32,7 +32,7 @@
     CGFloat textWidth = (kDeviceWidth-160)/2.0;
     for (int i=0; i<operatorArray.count; i++)
     {
-        CommonTextField *leftTextField = [[CommonTextField alloc]initWithFrame:CGRectMake(20, 100+i*95, textWidth, 40)];
+        CommonTextField *leftTextField = [[CommonTextField alloc]initWithFrame:CGRectMake(20, 150+i*95, textWidth, 40)];
         leftTextField.delegate = self;
         leftTextField.tag = 1 + i;
         [self.view addSubview:leftTextField];
@@ -58,6 +58,12 @@
         [self.view addSubview:operatorResult];
     }
     // Do any additional setup after loading the view.
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    self.view.top = 0;
+    [self.view endEditing:YES];
 }
 
 //操作结果
@@ -145,17 +151,13 @@
 #pragma mark UITextField delegate
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    if (self.view.top == -170)
-    {
-        self.view.top = 0;
-    }
+    self.view.top = 0;
     [textField resignFirstResponder];
     return YES;
 }
 
 -(BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    NSLog(@"tag=====%ld",textField.tag);
     [UIView animateWithDuration:0.2 animations:^{
         if (textField.tag == 3 || textField.tag == 4 || textField.tag == 5 || textField.tag == 12 || textField.tag == 13 || textField.tag == 14)
         {
@@ -164,21 +166,5 @@
     }];
     return YES;
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

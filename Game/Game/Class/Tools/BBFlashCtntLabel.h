@@ -16,7 +16,7 @@ typedef NS_ENUM(NSInteger, BBFlashCtntSpeed) {
 
 @interface BBFlashCtntLabel : UIView
 
-@property (nonatomic, strong) NSString *text;
+@property (nonatomic, copy) NSString *text;
 @property (nonatomic, strong) UIFont *font;         // 默认:system(15)
 @property (nonatomic, strong) UIColor *textColor;
 

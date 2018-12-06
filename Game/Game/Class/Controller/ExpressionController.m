@@ -33,7 +33,7 @@
     CommonImage *bgImage = [[CommonImage alloc]initWithFrame:[UIScreen mainScreen].bounds imageStr:@"faceBg"];
     self.view = bgImage;
     
-    CommonButton *backBtn = [[CommonButton alloc]initWithFrame:CGRectMake(0, 30, 65*0.65, 63*0.65) imageStr:@"back"];
+    CommonButton *backBtn = [[CommonButton alloc]initWithFrame:CGRectMake(5, 64, 65*0.65, 63*0.65) imageStr:@"back"];
     [backBtn addTarget:self action:@selector(backAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backBtn];
     
@@ -42,6 +42,9 @@
     
     //初始化子视图
     [self initSubViews];
+    
+    //动态文字
+    [self dynamicExpression];
     // Do any additional setup after loading the view.
 }
 
@@ -67,7 +70,7 @@
         NSString *path = [[NSBundle mainBundle] pathForResource:imagesArray[i] ofType:@"gif"];
         
         UIImageView *faceImage = [UIImageView imageViewWithGifFile:path frame:CGRectMake(0,0, 60, 60)];
-        [faceImage setCenter:CGPointMake((col*width)+width/2.0, 140+row*80)];
+        [faceImage setCenter:CGPointMake((col*width)+width/2.0, 200+row*90)];
         faceImage.userInteractionEnabled = YES;
         faceImage.backgroundColor = [UIColor clearColor];
         [faceGifArray addObject:faceImage];
@@ -91,7 +94,7 @@
     
     [segment setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:[UIColor brownColor],NSForegroundColorAttributeName,[UIFont fontWithName:@"Helvetica-BoldOblique" size:15],NSFontAttributeName, nil] forState:UIControlStateSelected];
     
-    segment.frame = CGRectMake((kDeviceWidth-200)/2.0, 40, 200, 40);
+    segment.frame = CGRectMake((kDeviceWidth-200)/2.0, 64, 200, 40);
     segment.selectedSegmentIndex = 0;
     [segment addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
     [self.view addSubview:segment];
@@ -109,7 +112,8 @@
         NSInteger col = i%index;
         
         UIImageView *tempFaceImage = faceGifArray[i];
-        [tempFaceImage setCenter:CGPointMake((col*width)+width/2.0, 140+row*80)];
+        CGPoint center = CGPointMake((col*width)+width/2.0, 200+row*90);
+        [tempFaceImage setCenter:center];
     }
 }
 
@@ -123,7 +127,7 @@
 //动态文本
 -(void)dynamicExpression
 {
-    CGRect rect = CGRectMake(0,kDeviceHeight-50, self.view.frame.size.width, 50);
+    CGRect rect = CGRectMake(0,kDeviceHeight-100, self.view.frame.size.width, 50);
     lbl = [[BBFlashCtntLabel alloc] initWithFrame:rect];
     lbl.backgroundColor = [UIColor clearColor];
     lbl.leastInnerGap = 10.f;
@@ -142,28 +146,14 @@
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
     //动态文字
-    [self dynamicExpression];
+    //[self dynamicExpression];
 }
 
 -(void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    [lbl removeFromSuperview];
-    lbl = nil;
+//    [lbl removeFromSuperview];
+//    lbl = nil;
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
