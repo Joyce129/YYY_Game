@@ -311,12 +311,14 @@
 {
     [super viewDidDisappear:animated];
     [_backgroundPlayer stop];
+    [_resultPlayer stop];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [_backgroundPlayer play];
+    //[_resultPlayer stop];
 }
 
 @end

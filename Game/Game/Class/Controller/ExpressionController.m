@@ -70,7 +70,7 @@
         NSString *path = [[NSBundle mainBundle] pathForResource:imagesArray[i] ofType:@"gif"];
         
         UIImageView *faceImage = [UIImageView imageViewWithGifFile:path frame:CGRectMake(0,0, 60, 60)];
-        [faceImage setCenter:CGPointMake((col*width)+width/2.0, 200+row*90)];
+        [faceImage setCenter:CGPointMake((col*width)+width/2.0, 170+row*90)];
         faceImage.userInteractionEnabled = YES;
         faceImage.backgroundColor = [UIColor clearColor];
         [faceGifArray addObject:faceImage];
@@ -127,13 +127,13 @@
 //动态文本
 -(void)dynamicExpression
 {
-    CGRect rect = CGRectMake(0,kDeviceHeight-100, self.view.frame.size.width, 50);
+    CGRect rect = CGRectMake(0,kDeviceHeight-80, self.view.frame.size.width, 50);
     lbl = [[BBFlashCtntLabel alloc] initWithFrame:rect];
     lbl.backgroundColor = [UIColor clearColor];
     lbl.leastInnerGap = 10.f;
     lbl.repeatCount = 0;
     lbl.speed = BBFlashCtntSpeedFast;
-    NSString *str = @"💖  2016动画表情大赛  💖";
+    NSString *str = @"💖  2018动画表情大赛  💖";
     lbl.text = str;
     lbl.font = [UIFont systemFontOfSize:22];
     lbl.textColor = [UIColor purpleColor];

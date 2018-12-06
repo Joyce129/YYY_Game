@@ -29,24 +29,24 @@
     self.view = bgImage;
     
     operatorArray = [NSMutableArray arrayWithObjects:[NSString stringWithFormat:@"%c",'+'],[NSString stringWithFormat:@"%c",'-'],[NSString stringWithFormat:@"%c",'*'],[NSString stringWithFormat:@"%c",'/'],[NSString stringWithFormat:@"%c",'%'],nil];
-    CGFloat textWidth = (kDeviceWidth-160)/2.0;
+    CGFloat textWidth = (kDeviceWidth-150)/2.0;
     for (int i=0; i<operatorArray.count; i++)
     {
-        CommonTextField *leftTextField = [[CommonTextField alloc]initWithFrame:CGRectMake(20, 150+i*95, textWidth, 40)];
+        CommonTextField *leftTextField = [[CommonTextField alloc]initWithFrame:CGRectMake(15, 150+i*95, textWidth, 40)];
         leftTextField.delegate = self;
         leftTextField.tag = 1 + i;
         [self.view addSubview:leftTextField];
         
-        CommonLabel *operatorLabel = [[CommonLabel alloc]initWithFrame:CGRectMake(leftTextField.right+10,leftTextField.top, 30, 30) titleStr:operatorArray[i] textColor:[UIColor brownColor] textFont:[UIFont boldSystemFontOfSize:40]];
+        CommonLabel *operatorLabel = [[CommonLabel alloc]initWithFrame:CGRectMake(leftTextField.right+5,leftTextField.top, 50, 30) titleStr:operatorArray[i] textColor:[UIColor brownColor] textFont:[UIFont boldSystemFontOfSize:40]];
         operatorLabel.textAlignment = NSTextAlignmentCenter;
         [self.view addSubview:operatorLabel];
 
-        CommonTextField *rightTextField = [[CommonTextField alloc]initWithFrame:CGRectMake(operatorLabel.right+10,leftTextField.top ,leftTextField.width,leftTextField.height)];
+        CommonTextField *rightTextField = [[CommonTextField alloc]initWithFrame:CGRectMake(operatorLabel.right+5,leftTextField.top ,leftTextField.width,leftTextField.height)];
         rightTextField.tag = 10 + i;
         rightTextField.delegate = self;
         [self.view addSubview:rightTextField];
         
-        CommonButton *resultBtn = [[CommonButton alloc]initWithFrame:CGRectMake(kDeviceWidth-70, operatorLabel.top+5, 60, 30) textFlag:YES];
+        CommonButton *resultBtn = [[CommonButton alloc]initWithFrame:CGRectMake(kDeviceWidth-65, operatorLabel.top+5, 60, 30) textFlag:YES];
         resultBtn.tag = 100 + i;
         [resultBtn setTitle:operatorLabel.text forState:UIControlStateDisabled];
         [resultBtn addTarget:self action:@selector(operationAction:) forControlEvents:UIControlEventTouchUpInside];
