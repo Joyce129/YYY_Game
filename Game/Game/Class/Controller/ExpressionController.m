@@ -14,13 +14,13 @@
 #import "CommonImage.h"
 #import "CommonButton.h"
 #import "CommonLabel.h"
-#import "BBFlashCtntLabel.h"
+#import "YYYFlashView.h"
 
 @interface ExpressionController ()
 {
     NSMutableArray *imagesArray;
     NSMutableArray *faceGifArray;
-    BBFlashCtntLabel *lbl;
+    YYYFlashView *flashView;
 }
 @end
 
@@ -128,32 +128,22 @@
 -(void)dynamicExpression
 {
     CGRect rect = CGRectMake(0,kDeviceHeight-80, self.view.frame.size.width, 50);
-    lbl = [[BBFlashCtntLabel alloc] initWithFrame:rect];
-    lbl.backgroundColor = [UIColor clearColor];
-    lbl.leastInnerGap = 10.f;
-    lbl.repeatCount = 0;
-    lbl.speed = BBFlashCtntSpeedFast;
+    flashView = [[YYYFlashView alloc] initWithFrame:rect];
+    flashView.innerEdgeGap = 10.f;
+    flashView.repeatCount = 0;
+    flashView.speed = YYYFlashSpeedFast;
     NSString *str = @"💖  2018动画表情大赛  💖";
-    lbl.text = str;
-    lbl.font = [UIFont systemFontOfSize:22];
-    lbl.textColor = [UIColor purpleColor];
-    [lbl reloadView];
-    [self.view addSubview:lbl];
+    flashView.text = str;
+    flashView.font = [UIFont systemFontOfSize:22];
+    flashView.textColor = [UIColor purpleColor];
+    [flashView reloadView];
+    [self.view addSubview:flashView];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     self.navigationController.navigationBarHidden = YES;
-    //动态文字
-    //[self dynamicExpression];
-}
-
--(void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-//    [lbl removeFromSuperview];
-//    lbl = nil;
 }
 
 @end

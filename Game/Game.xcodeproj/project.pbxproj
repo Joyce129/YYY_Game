@@ -33,8 +33,7 @@
 		2F1311E421B7DADE0086C81B /* 伤感.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1311C521B7DADE0086C81B /* 伤感.mp3 */; };
 		2F1311E521B7DADE0086C81B /* 和局.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1311C621B7DADE0086C81B /* 和局.mp3 */; };
 		2F1311E621B7DADE0086C81B /* 恭喜.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 2F1311C721B7DADE0086C81B /* 恭喜.mp3 */; };
-		2F1311E721B7DADE0086C81B /* BBFlashCtntLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F1311CA21B7DADE0086C81B /* BBFlashCtntLabel.m */; };
-		2F1311E821B7DADE0086C81B /* UIImageView+GIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F1311CC21B7DADE0086C81B /* UIImageView+GIF.m */; };
+		2F1311E721B7DADE0086C81B /* YYYFlashView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F1311CA21B7DADE0086C81B /* YYYFlashView.m */; };
 		2F1311E921B7DADE0086C81B /* UIViewExt.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F1311CF21B7DADE0086C81B /* UIViewExt.m */; };
 		2F1311F221B7DB2C0086C81B /* CalculatorController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F1311EA21B7DB2C0086C81B /* CalculatorController.m */; };
 		2F1311F321B7DB2C0086C81B /* CommonBackController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F1311EB21B7DB2C0086C81B /* CommonBackController.m */; };
@@ -77,10 +76,8 @@
 		2F1311C521B7DADE0086C81B /* 伤感.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "伤感.mp3"; sourceTree = "<group>"; };
 		2F1311C621B7DADE0086C81B /* 和局.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "和局.mp3"; sourceTree = "<group>"; };
 		2F1311C721B7DADE0086C81B /* 恭喜.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "恭喜.mp3"; sourceTree = "<group>"; };
-		2F1311C921B7DADE0086C81B /* BBFlashCtntLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBFlashCtntLabel.h; sourceTree = "<group>"; };
-		2F1311CA21B7DADE0086C81B /* BBFlashCtntLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBFlashCtntLabel.m; sourceTree = "<group>"; };
-		2F1311CB21B7DADE0086C81B /* UIImageView+GIF.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+GIF.h"; sourceTree = "<group>"; };
-		2F1311CC21B7DADE0086C81B /* UIImageView+GIF.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+GIF.m"; sourceTree = "<group>"; };
+		2F1311C921B7DADE0086C81B /* YYYFlashView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYYFlashView.h; sourceTree = "<group>"; };
+		2F1311CA21B7DADE0086C81B /* YYYFlashView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYYFlashView.m; sourceTree = "<group>"; };
 		2F1311CE21B7DADE0086C81B /* UIViewExt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIViewExt.h; sourceTree = "<group>"; };
 		2F1311CF21B7DADE0086C81B /* UIViewExt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIViewExt.m; sourceTree = "<group>"; };
 		2F1311EA21B7DB2C0086C81B /* CalculatorController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalculatorController.m; sourceTree = "<group>"; };
@@ -225,10 +222,8 @@
 			children = (
 				2F5F8D1D21B8B66F00247829 /* UIImageView+GifAnimation.h */,
 				2F5F8D1E21B8B66F00247829 /* UIImageView+GifAnimation.m */,
-				2F1311C921B7DADE0086C81B /* BBFlashCtntLabel.h */,
-				2F1311CA21B7DADE0086C81B /* BBFlashCtntLabel.m */,
-				2F1311CB21B7DADE0086C81B /* UIImageView+GIF.h */,
-				2F1311CC21B7DADE0086C81B /* UIImageView+GIF.m */,
+				2F1311C921B7DADE0086C81B /* YYYFlashView.h */,
+				2F1311CA21B7DADE0086C81B /* YYYFlashView.m */,
 				2F1311CD21B7DADE0086C81B /* UIViewExt */,
 			);
 			path = Tools;
@@ -330,13 +325,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F1311E721B7DADE0086C81B /* BBFlashCtntLabel.m in Sources */,
+				2F1311E721B7DADE0086C81B /* YYYFlashView.m in Sources */,
 				2F1311D021B7DADE0086C81B /* CommonButton.m in Sources */,
 				2F1311E921B7DADE0086C81B /* UIViewExt.m in Sources */,
 				2F1311F521B7DB2C0086C81B /* ExpressionController.m in Sources */,
 				2F5F8D1F21B8B66F00247829 /* UIImageView+GifAnimation.m in Sources */,
 				2F1311F221B7DB2C0086C81B /* CalculatorController.m in Sources */,
-				2F1311E821B7DADE0086C81B /* UIImageView+GIF.m in Sources */,
 				2F13119E21B7D8CD0086C81B /* main.m in Sources */,
 				2F1311D221B7DADE0086C81B /* CommonLabel.m in Sources */,
 				2F1311D121B7DADE0086C81B /* CommonImage.m in Sources */,

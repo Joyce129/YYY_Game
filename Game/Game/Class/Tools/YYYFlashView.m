@@ -1,14 +1,14 @@
 //
-//  BBFlashCtntLabel.m
-//  DebugTest
+//  YYYFlashView.m
+//  Game
 //
-//  Created by iXcoder on 15/3/2.
-//  Copyright (c) 2015年 iXcoder. All rights reserved.
+//  Created by Jean on 2018/12/6.
+//  Copyright © 2018年 北京易盟天地信息技术股份有限公司. All rights reserved.
 //
 
-#import "BBFlashCtntLabel.h"
+#import "YYYFlashView.h"
 
-@interface BBFlashCtntLabel()
+@interface YYYFlashView()
 {
     BOOL moveNeed;
     
@@ -19,7 +19,7 @@
 
 @end
 
-@implementation BBFlashCtntLabel
+@implementation YYYFlashView
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -31,18 +31,18 @@
     return self;
 }
 
-- (void)setSpeed:(BBFlashCtntSpeed)speed
+- (void)setSpeed:(YYYFlashSpeed)speed
 {
     _speed = speed;
     switch (_speed)
     {
-        case BBFlashCtntSpeedFast:
+        case YYYFlashSpeedFast:
             rate = 90.;
             break;
-        case BBFlashCtntSpeedMild:
+        case YYYFlashSpeedMild:
             rate = 75;
             break;
-        case BBFlashCtntSpeedSlow:
+        case YYYFlashSpeedSlow:
             rate = 40.;
             break;
         default:
@@ -55,8 +55,6 @@
 {
     self.innerContainer = [[UIView alloc] initWithFrame:self.bounds];
     self.innerContainer.backgroundColor = [UIColor clearColor];
-
-    //self.innerContainer.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [self addSubview:self.innerContainer];
 }
 
@@ -82,7 +80,7 @@
     }
     [self.innerContainer addSubview:firstLabel];
     
-    CGRect frame2 = CGRectMake(width + self.leastInnerGap, 0, width, frame1.size.height);
+    CGRect frame2 = CGRectMake(width + self.innerEdgeGap, 0, width, frame1.size.height);
     UILabel *secondLabel = [[UILabel alloc] initWithFrame:frame2];
     secondLabel.textAlignment = NSTextAlignmentCenter;
     if (self.text)
@@ -97,7 +95,7 @@
     CAKeyframeAnimation *moveAnimation = [CAKeyframeAnimation animationWithKeyPath:@"transform.translation.x"];
     moveAnimation.removedOnCompletion = false;
     moveAnimation.keyTimes = @[@0., @0.191, @0.868, @1.0];
-    moveAnimation.values = @[@0, @0., @(- width - self.leastInnerGap)];
+    moveAnimation.values = @[@0, @0., @(- width - self.innerEdgeGap)];
     moveAnimation.duration = width / rate;
     moveAnimation.repeatCount = self.repeatCount == 0 ? INT16_MAX : self.repeatCount;
     moveAnimation.timingFunction = [CAMediaTimingFunction functionWithName:@"linear"];
